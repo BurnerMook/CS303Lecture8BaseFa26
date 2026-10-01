@@ -313,7 +313,14 @@ public class MyLinkedList<E> implements MyList<E> {
   //POST:verify the index & return null if invalid
   //     return the element 
   public E get(int index) {
-    System.out.println("You must add the logic for method: get");
+    //System.out.println("You must add the logic for method: get");
+    Node<E> temp = head;
+    for (int i = 0; temp.next != null; i++){
+      if(i==index){
+        return temp.element;
+      }
+      temp = temp.next;
+    }
     return null;
   }
 
@@ -323,7 +330,14 @@ public class MyLinkedList<E> implements MyList<E> {
   //POST:returns the index if found or -1 if not 
 
   public int indexOf(Object e) {
-    System.out.println("You must add the logic for method: indexOf");
+    //System.out.println("You must add the logic for method: indexOf");
+    Node<E> temp = head;
+    for (int i = 0; temp.next != null; i++){
+      if(temp.element==e){
+        return i;
+      }
+      temp=temp.next;
+    }
     return -1;
   }
 
