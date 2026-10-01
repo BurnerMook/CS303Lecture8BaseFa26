@@ -113,13 +113,13 @@ public class MyLinkedList<E> implements MyList<E> {
 
   public void addBefore(E prior, E data) {
 
-    System.out.println("You must complete the logic for method: AddBefore");
+    //System.out.println("You must complete the logic for method: AddBefore");
     //check if prior exists
     if (prior == null)
       throw new IllegalStateException("Prior is Null");
-
     //if list is empty, add node 
-    
+    if (head == null)
+      throw new IllegalStateException("List is Empty - Prior not found");
 
     //add node prior to head
     if (prior.equals(head.element)){
@@ -129,8 +129,19 @@ public class MyLinkedList<E> implements MyList<E> {
 
     //Add logic to find where to insert & adjust pointers
     Node<E> temp = head;
- 
-
+    Node<E> newNode = new Node<E>(data);
+    while (temp != null &&
+           temp.next != null &&
+           temp.next.element != prior)
+           temp = temp.next;
+    
+    if (temp != null && temp.next != null && temp.next.element.equals(prior)){
+      newNode.next = temp.next;
+      temp.next = newNode;
+      size++;
+    }
+    else
+      throw new IllegalStateException("Prior not found");
   }
 
   // Remove the head node and return the object
@@ -189,19 +200,38 @@ public class MyLinkedList<E> implements MyList<E> {
   //POST:  The node prior to the value given is deleted 
 
   public E deleteBefore(E prior) {
-    System.out.println("You must add the logic for method: DeleteBefore");
+    //System.out.println("You must add the logic for method: DeleteBefore");
 
     //check if prior exists
 
     //if there is <= 1 element in list
+    if (size() == 0 || size() == 1)
+      throw new IllegalStateException("Delete Before: Unable to delete before");
  
     //if trying to delete before the head
+    if (head.element.equals(prior))
+      throw new IllegalStateException("Delete before: Unable to delete before head");
 
     //if trying to delete the head
-  
-    //find element to delte & adjust the pointers
+    if (head.next != null && head.next.element.equals(prior)){
+      E temp = removeFirst();
+      return temp;
+    }
 
-    return null;
+    //find element to delte & adjust the pointers
+    Node<E> temp = head;
+    while (temp != null &&
+           temp.next != null &&
+           temp.next.next != null){
+          if (temp.next.next.element.equals(prior)){
+             E tempValue = temp.next.element;
+             temp.next = temp.next.next;
+             size--;
+             return tempValue;
+          }
+          temp = temp.next;
+      }  
+      throw new IllegalStateException("Delete before: Prior not found");
   }
 
  

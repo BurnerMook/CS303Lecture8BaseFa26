@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class Functions {
 
@@ -94,11 +94,12 @@ public class Functions {
         names.add("Keiko");
         System.out.println("\t" + names);
 
-        System.out.println("   USING MYLINKEDLIST ADDBEFORE:");         
-        names.addBefore("Sam", "Bob");
-        System.out.println("    After adding Bob before Sam: " + names);   
-        names.addBefore("Tom", "Al");
-        System.out.println("    After adding Al before Tom:  " + names);   
+        try{
+            System.out.println("   USING MYLINKEDLIST ADDBEFORE:");         
+            names.addBefore("Sam", "Bob");
+            System.out.println("    After adding Bob before Sam: " + names);   
+            names.addBefore("Tom", "Al");
+            System.out.println("    After adding Al before Tom:  " + names);   
 
         //TASK 2: DELETEBEFORE
         System.out.println("   \nUSING MYLINKEDLIST DELETEBEFORE:");       
@@ -108,7 +109,12 @@ public class Functions {
         System.out.println("    After deleting before Carl:  " +names);    
         names.deleteBefore("Al");
         System.out.println("    After deleting before Bob:   " + names);  
-        System.out.println();      
+        System.out.println();     
+        
+                }
+        catch(Exception e){
+            System.out.println("There was an error: " + e.getMessage());
+        }
     }
 
     public static MyLinkedList<Person> loadData(MyLinkedList<Person> people){
@@ -161,84 +167,88 @@ public class Functions {
 
     public static void testMyList(){
         System.out.println("\nTESTING MYLINKEDLIST"); 
+        try{
+            // Create a list for strings
+            MyLinkedList<String> list = new MyLinkedList<String>();
+            //MyDblLinkedList<String> list = new MyDblLinkedList<String>();
 
-        // Create a list for strings
-        MyLinkedList<String> list = new MyLinkedList<String>();
-        //MyDblLinkedList<String> list = new MyDblLinkedList<String>();
+            //Checking functionality add
+            list.add("America"); // Add it to the list
+            System.out.println("(1) " + list);
 
-        //Checking functionality add
-        list.add("America"); // Add it to the list
-        System.out.println("(1) " + list);
+            list.add(0, "Canada"); // Add it to the beginning of the list
+            System.out.println("(2) " + list);
 
-        list.add(0, "Canada"); // Add it to the beginning of the list
-        System.out.println("(2) " + list);
+            list.add("Russia"); // Add it to the end of the list
+            System.out.println("(3) " + list);
 
-        list.add("Russia"); // Add it to the end of the list
-        System.out.println("(3) " + list);
+            list.addLast("France"); // Add it to the end of the list
+            System.out.println("(4) " + list);
 
-        list.addLast("France"); // Add it to the end of the list
-        System.out.println("(4) " + list);
+            list.add(2, "Germany"); // Add it to the list at index 2
+            System.out.println("(5) " + list);
 
-        list.add(2, "Germany"); // Add it to the list at index 2
-        System.out.println("(5) " + list);
+            list.add(5, "Norway"); // Add it to the list at index 5
+            System.out.println("(6) " + list);
 
-        list.add(5, "Norway"); // Add it to the list at index 5
-        System.out.println("(6) " + list);
+            list.add(0, "Poland"); // Same as list.addFirst("Poland")
+            System.out.println("(7) " + list);
 
-        list.add(0, "Poland"); // Same as list.addFirst("Poland")
-        System.out.println("(7) " + list);
+            //Checking functionality remove
+            // Remove elements from the list
+            list.remove(0); // Same as list.remove("Germany") in this case
+            System.out.println("(8) " + list);
 
-        //Checking functionality remove
-        // Remove elements from the list
-        list.remove(0); // Same as list.remove("Germany") in this case
-        System.out.println("(8) " + list);
+            list.remove(2); // Remove the element at index 2
+            System.out.println("(9) " + list);
 
-        list.remove(2); // Remove the element at index 2
-        System.out.println("(9) " + list);
+            list.remove(list.size() - 1); // Remove the last element
+            System.out.println("(10) " + list);
+            
+            //Checking functionality using iterator 
+            System.out.print("\n(11) Print using iterator:  {");
+            Iterator<String> iterator1 = list.iterator();
+            while (iterator1.hasNext())
+                System.out.print(iterator1.next().toUpperCase() + " ");
+            System.out.println("}");
 
-        list.remove(list.size() - 1); // Remove the last element
-        System.out.println("(10) " + list);
+            //Checking functionality of contains, indexOf, get, set, lastIndexOf 
+            System.out.println("\n(12a) contains Japan: " + list.contains("Japan"));
+            System.out.println("(13a) Index of Japan:  " + list.indexOf("Japan"));   
+            System.out.println("(13b) Index of France: " + list.indexOf("France"));
+
+            System.out.println("\n(14a) Value at 0:   " + list.get(0));   
+            System.out.println("(14b) Value at 3:   " + list.get(3));   
+            System.out.println("(14c) Value at 18:  " + list.get(18));   
+            System.out.println("(14d) Value at size:" + list.get(list.size() - 1));
+
+            list.set(3, "Canada");
+            list.set(0, "Finland");
+            System.out.println("\n(15a) Set 0 to Finland & 3 to Canada: " + list); 
+            System.out.println("(15b) last index of Canada: " + list.lastIndexOf("Canada"));       
+            System.out.println("(15c) last index of Norway: " + list.lastIndexOf("Norway"));      
+
         
-        //Checking functionality using iterator 
-        System.out.print("\n(11) Print using iterator:  {");
-        Iterator<String> iterator1 = list.iterator();
-        while (iterator1.hasNext())
-            System.out.print(iterator1.next().toUpperCase() + " ");
-        System.out.println("}");
+            //Checking functionality addBefore
+            list.addBefore("Finland", "America");
+            System.out.println("\n(16a) add America before Finland:   " + list);
 
-        //Checking functionality of contains, indexOf, get, set, lastIndexOf 
-        System.out.println("\n(12a) contains Japan: " + list.contains("Japan"));
-        System.out.println("(13a) Index of Japan:  " + list.indexOf("Japan"));   
-        System.out.println("(13b) Index of France: " + list.indexOf("France"));
+            list.addBefore("Russia", "Japan");
+            System.out.println("\n(16b) add Japan before Russia:   " + list);
 
-        System.out.println("\n(14a) Value at 0:   " + list.get(0));   
-        System.out.println("(14b) Value at 3:   " + list.get(3));   
-        System.out.println("(14c) Value at 18:  " + list.get(18));   
-        System.out.println("(14d) Value at size:" + list.get(list.size() - 1));
+            list.addBefore("Canada", "Iceland");
+            System.out.println("(16c) add Iceland before Canada: " + list);
+    
+            //Checking functionality deleteBefore 
+            System.out.println("(17a) delete before Japan: "  + list.deleteBefore("Japan") + "\t :: " + list);
+            System.out.println("(17b) delete before Canada:  "  + list.deleteBefore("Canada") + "\t :: " + list);
 
-        list.set(3, "Canada");
-        list.set(0, "Finland");
-        System.out.println("\n(15a) Set 0 to Finland & 3 to Canada: " + list); 
-        System.out.println("(15b) last index of Canada: " + list.lastIndexOf("Canada"));       
-        System.out.println("(15c) last index of Norway: " + list.lastIndexOf("Norway"));      
-
-       
-        //Checking functionality addBefore
-        list.addBefore("Finland", "America");
-        System.out.println("\n(16a) add America before Finland:   " + list);
-
-        list.addBefore("Russia", "Japan");
-        System.out.println("\n(16b) add Japan before Russia:   " + list);
-
-        list.addBefore("Canada", "Iceland");
-        System.out.println("(16c) add Iceland before Canada: " + list);
- 
-        //Checking functionality deleteBefore 
-        System.out.println("(17a) delete before Finland: "  + list.deleteBefore("Finland") + "\t :: " + list);
-        System.out.println("(17b) delete before Canada:  "  + list.deleteBefore("Canada") + "\t :: " + list);
-
-        list.clear();
-        System.out.println("\nAfter clearing the list, the list size is " + list.size());
+            list.clear();
+            System.out.println("\nAfter clearing the list, the list size is " + list.size());
+        }
+        catch(Exception e){
+            System.out.println("There was an error: " + e.getMessage());
+        }
 
     }
 
